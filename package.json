@@ -1,0 +1,23 @@
+{
+  "name": "type-script-challage",
+  "version": "1.0.0",
+  "description": "这是我的TS学习之路的见证",
+  "main": "index.js",
+  "scripts": {
+    "test": "yarn build test"
+  },
+  "repository": "git+https://github.com/cpWhitecat/type-script-challage.git",
+  "keywords": [
+    "cpp"
+  ],
+  "author": "cpWhitecat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cpWhitecat/type-script-challage/issues"
+  },
+  "homepage": "https://github.com/cpWhitecat/type-script-challage#readme",
+  "dependencies": {
+    "typescript": "^4.6.4",
+    "yarn": "^1.22.18"
+  }
+}
