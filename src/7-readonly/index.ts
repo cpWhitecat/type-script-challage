@@ -18,3 +18,19 @@ interface Todo1 {
     author: string
   }
 }
+
+
+// js
+
+function MyReadonly(Todo,keys){
+    const obj  = {};
+
+    keys.forEach((key)=>{
+        if(key in Todo){
+            obj[key] = Todo[key]
+        }
+        
+    })
+
+    return obj
+}
