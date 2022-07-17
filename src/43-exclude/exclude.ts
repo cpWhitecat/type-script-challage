@@ -1,4 +1,4 @@
-type MyExclude<T, U> =U extends (infer C) ? T extends C ? 
+type MyExclude<T, U> =  T extends U?  never : T
 
 
 /* _____________ Test Cases _____________ */
