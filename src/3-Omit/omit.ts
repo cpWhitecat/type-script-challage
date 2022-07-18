@@ -37,7 +37,8 @@ interface Expected2 {
 }
 type ccc = Todo['description' | 'completed']
 
-type cccp = 'description' extends 'description' | 'completed'  ? true : false;
+type cccp = 'description' extends 'description' | 'completed'  ? true : false;  // true
+type cccd =   'description' | 'completed' extends 'descridtion'  ? true : false;  // false
 
 
 // js
