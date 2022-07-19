@@ -21,14 +21,14 @@ type error = TupleToObject<[[1, 2], {}]>
 
 
 // in js
-const tuple1 = [1,2,3]
-function TupleToObject(tuple1:any[]){
-    const obj = {};
+// const tuple1 = [1,2,3]
+// function TupleToObject(tuple1:any[]){
+//     const obj = {};
 
-    tuple1.forEach(val => {
-        obj[val] = val
+//     tuple1.forEach(val => {
+//         obj[val] = val
         
-    });
+//     });
 
-}
+// }
 

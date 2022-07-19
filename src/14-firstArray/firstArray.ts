@@ -21,10 +21,10 @@ type errors = [
 
 // js
 
-function firstArray(arr){
-    if(arr.length === 0){
-        return 
-    }else{
+// function firstArray(arr){
+//     if(arr.length === 0){
+//         return 
+//     }else{
 
-    }
-}
+//     }
+// }

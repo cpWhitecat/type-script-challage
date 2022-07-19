@@ -21,13 +21,13 @@ type cases = [
 
 // js
 
-function length(arr){
-    let val = 0;
+// function length(arr){
+//     let val = 0;
 
     
-    arr.forEach(()=>{
-        val++
-    })
+//     arr.forEach(()=>{
+//         val++
+//     })
 
-    return val
-}
+//     return val
+// }

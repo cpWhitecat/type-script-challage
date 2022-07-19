@@ -49,7 +49,7 @@ type CP = {
   }
   type CCCA = DeepReadonly<CP['c']>
   type CD = CP['c']['d'] extends object ? true : false
-  type CCCB = ArrayReadonly<CP['c']['e']['l']>
+  // type CCCB = ArrayReadonly<CP['c']['e']['l']>
   type CCA = DeepReadonly<CP>
 
 type cases = [
@@ -114,18 +114,18 @@ interface ccccc{
 }
 
 
-let testN : ccccc = {
-   readonly name:{
-        first:'b',
-        last:'b'
-    }
-}
+// let testN : ccccc = {
+//    readonly name:{
+//         first:'b',
+//         last:'b'
+//     }
+// }
 
-testN.name['first'] = 'a'
-testN.name = {}
+// testN.name['first'] = 'a'
+// testN.name = {}
 
-type keys = keyof ccccc['name']
+// type keys = keyof ccccc['name']
 
-type ccccccccc<T> = {
-    readonly 
-} 
+// type ccccccccc<T> = {
+//     readonly 
+// } 

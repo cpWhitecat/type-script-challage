@@ -1,4 +1,4 @@
-type MyAwaited<T extends Promise<unknown>> = T extends Promise<(infer P)> ? P extends Promise<unknown> ? MyAwaited<P>  : P : T 
+export type MyAwaited<T extends Promise<unknown>> = T extends Promise<(infer P)> ? P extends Promise<unknown> ? MyAwaited<P>  : P : T 
 // 限制输入 一定是promise 
 /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '../../utils'
@@ -19,4 +19,4 @@ type cases = [
 type error = MyAwaited<number>  // 这边没有想到解决方法
 
 type testPromiseAwaited<C> = C extends Promise<(infer P)> ? P : symbol;
-let te : testPromiseAwaited<number> = ()=>{}
+

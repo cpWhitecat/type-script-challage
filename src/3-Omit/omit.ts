@@ -43,6 +43,6 @@ type cccd =   'description' | 'completed' extends 'descridtion'  ? true : false;
 
 // js
 
-function omit(obj,key){
+// function omit(obj,key){
   
-}
+// }

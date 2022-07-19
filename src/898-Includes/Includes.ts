@@ -36,12 +36,12 @@ type cases = [
 
 //js
 
-function Includ(arr,value){
-    arr.forEach((val)=>{
-        if(val == value){
-            return true
-        }
-    })
+// function Includ(arr,value){
+//     arr.forEach((val)=>{
+//         if(val == value){
+//             return true
+//         }
+//     })
 
-    return false
-}
+//     return false
+// }
