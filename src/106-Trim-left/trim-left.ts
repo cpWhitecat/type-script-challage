@@ -1,15 +1,19 @@
 type MyEscape<S extends string> = S extends `${infer A}${infer B}` ? TrimLeft<B> : never
-type TrimLeft<S extends string> = S extends '' ?
+type stringExclude = ' ' | '\n' | '\t' 
+export type TrimLeft<S extends string> = S extends `${stringExclude}${infer rest}` ?  TrimLeft<rest> : S
+
+
+// 这是自己的 有点拉。。
+type TrimLeft2<S extends string> = S extends '' ?
     S:
 
     S extends `${infer A}${infer B}` ?
 
         A extends ' ' ? 
-            TrimLeft<B>
+            TrimLeft2<B>
             : A extends '\n' | '\t' ? MyEscape<B> : `${A}${B}`
 
 :never
-
 // ts中对于转义符的处理是 把整个转义符取出来的
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '../../utils'
