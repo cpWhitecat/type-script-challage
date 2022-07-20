@@ -2,7 +2,12 @@
 // type Permutation<T,U=T> = T extends infer P ? [P,...Permutation<>] : never
 // 上面想法是没错的，但今天状态实在太差
 
-type Permutation<T,U=T> = [U] extends [never] ? [] : (T extends U ? [T,...Permutation<Exclude<U,T>>]:[]) 
+type Permutation<T,U=T> = 
+    [U] extends [never] 
+    ? [] 
+    : T extends U 
+        ? [T,...Permutation<Exclude<U,T>>]
+        :never 
 // 官方文档中，介绍了一种操作，叫 Distributive conditional types
 // 简单来说，传入给T extends U中的T如果是一个联合类型A | B | C，则这个表达式会被展开成
 // (A extends U ? X : Y) | (B extends U ? X : Y) | (C extends U ? X : Y)
