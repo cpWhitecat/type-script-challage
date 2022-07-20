@@ -1,6 +1,6 @@
 import type {Equal} from '../../utils'
 import type {Push} from '../3057-push/push'
-type MyParameters<T extends (...args: any[]) => any> = T extends (...args:infer Args)=>any ? Args : []  //😭😭😭 没做出来 ， 不知道 infer 在函数签名里的写法
+export type MyParameters<T extends (...args: any[]) => any> = T extends (...args:infer Args)=>any ? Args : []  //😭😭😭 没做出来 ， 不知道 infer 在函数签名里的写法
 
 
 /* _____________ Test Cases _____________ */
@@ -22,16 +22,16 @@ type cases = [
 
 // js
 
-function parameters(...args){
-    const arr = [];
-    for (let i = 0; i < args.length; i++) {
-        arr[i] = args[i]
+// function parameters(...args){
+//     const arr = [];
+//     for (let i = 0; i < args.length; i++) {
+//         arr[i] = args[i]
         
-    }
+//     }
 
-    return arr
-}
+//     return arr
+// }
 
 
 
-type 
+// type 
