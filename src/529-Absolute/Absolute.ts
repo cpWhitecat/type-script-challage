@@ -1,4 +1,4 @@
-type Absolute<T extends number | string | bigint> = T extends `${infer P}${infer last}` ? last : `${T}`
+type Absolute<T extends number | string | bigint> = `${T}` extends `${infer P}${infer last}` ? P extends '-' ? last : `${T}` : `${T}`
 
 
 /* _____________ 测试用例 _____________ */
