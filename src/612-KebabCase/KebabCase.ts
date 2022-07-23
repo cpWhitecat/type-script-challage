@@ -1,5 +1,5 @@
-type rule = 'A' | 'F' | 'B'
-type KebabCase<S,P extends keyof rule = keyof rule> = S extends `${infer Left}${infer Last}` ? `${Left}-${'f'}${KebabCase<Last>}` : S
+type rule = 'A' | 'F' | 'B' | 'C'
+type KebabCase<S> = S extends `${infer A}${infer B}` ? 'A' | 'F' | 'B' | 'C' extends A ? `-${Lowercase<A>}${KebabCase<B>}` : `${A}${KebabCase<B>}` : S
 
 
 /* _____________ Test Cases _____________ */
@@ -17,4 +17,5 @@ type cases = [
   Expect<Equal<KebabCase<'😎'>, '😎'>>,
 ]
 
-type A = KebabCase<'Foo-Bar'>
+type C<S> = S extends `${infer A}${infer B}` ? `${'P'}${C<B>}` : false
+type A = C<'fooBarBaz'>
