@@ -1,10 +1,9 @@
 type MyInclude<U,T> = {[P in keyof U]:U[P] extends T ? U : U[P]} 
 
 
-type ReplaceKeys<U, T, Y> = T extends keyof U ? {
-    [K in keyof U | T]: K extends keyof T ? K extends keyof Y ? Y[K] : U[K] :U[K]  
+type ReplaceKeys<U, T, Y> ={
+  [P in keyof U]:U[P]
 }
-: U
 
 
 

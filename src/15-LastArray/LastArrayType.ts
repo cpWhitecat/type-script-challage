@@ -1,4 +1,4 @@
-type Last<T extends any[]> = T extends [ ...infer set,infer D] ? D : never
+export type Last<T extends any[]> = T extends [ ...infer set,infer D] ? D : never
 
 
 
