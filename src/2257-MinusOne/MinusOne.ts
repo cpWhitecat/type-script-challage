@@ -8,7 +8,7 @@ type MinusOne<T extends number , U extends any[] = [0]> = U['length'] extends T 
 // type MinusOne<T extends number> =C<T> extends any[] ?  : never
  /* _____________ 测试用例 _____________ */
 import type { Equal, Expect } from '../../utils'
-
+// 或许可以是用 Record 来解决
 type cases = [
   Expect<Equal<MinusOne<1>, 0>>,
   Expect<Equal<MinusOne<55>, 54>>,

@@ -1,5 +1,5 @@
 type PartialAll<T> = {[P in keyof T]:T[P]}
-type PartialByKeys<T,K = unknown> = PartialAll<Omit<T,Extract<keyof T , K>>&{
+ export type PartialByKeys<T,K = unknown> = PartialAll<Omit<T,Extract<keyof T , K>>&{
     [P in Extract<keyof T , K> ]?:T[P]
 }>
 // {} & {} 这样的方式并不能等于 同样key 和 value 的 {} 所以需要再外套一个遍历这里的key
