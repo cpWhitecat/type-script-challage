@@ -1,12 +1,30 @@
-import type {Push} from '../3057-push/push'
-import type {Last} from '../15-LastArray/LastArrayType'
-type MinusOne<T extends number , U extends any[] = [0]> = U['length'] extends T ? (U extends [...infer A , infer B] ? B : never) :  MinusOne<T,Push<U,U['length']>>
+// import type {Push} from '../3057-push/push'
+// import type {Last} from '../15-LastArray/LastArrayType'
+// type MinusOne<T extends number , U extends any[] = [0]> = U['length'] extends T ? (U extends [...infer A , infer B] ? B : never) :  MinusOne<T,Push<U,U['length']>>
 // type MinusOne<T extends number> = Push<[T],'1'>
 // 感觉肯定使用数组下标的方式
 // 去获取最后的下表
 
 // type MinusOne<T extends number> =C<T> extends any[] ?  : never
  /* _____________ 测试用例 _____________ */
+
+//  这种方法可行 到时候再搞个键映射 这问题就解决啦
+type numberMap = {
+  0:9,
+  1:0,
+  2:1,
+  3:2,
+  4:3,
+  5:4,
+  6:5,
+  7:6,
+  8:7,
+  9:8
+}
+type handleZero<Cache extends string> = `${Cache}` extends `${infer rest}${infer Last}` ? Last extends '' ? 
+type handleNumber<T extends string, Cache=''> = `${T}` extends `${infer F extends keyof numberMap}${infer rest}` ? rest extends ''? numberMap[F]:handleNumber<rest>  :false
+ type MinusOne<T extends number,Cache = '' > = `${T}` extends `${infer F extends keyof numberMap}${infer rest}` ? rest extends ''? numberMap[F]:MinusOne<1>  :false
+
 import type { Equal, Expect } from '../../utils'
 // 或许可以是用 Record 来解决
 type cases = [
@@ -18,4 +36,4 @@ type cases = [
 //   空间复杂度太高了。。。溢出了 感觉要做成字符串来处理了 ， 明天再说吧
 ] 
  
-type B = MinusOne<1000>
+type B = MinusOne<1>

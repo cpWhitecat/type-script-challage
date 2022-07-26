@@ -1,4 +1,4 @@
-type Reverse<T> =  T extends [infer F , ...infer rest] ? [...Reverse<rest>,F] : []
+export type Reverse<T> =  T extends [infer F , ...infer rest] ? [...Reverse<rest>,F] : []
 
 
 /* _____________ 测试用例 _____________ */
