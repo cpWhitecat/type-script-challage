@@ -3,7 +3,7 @@ type String<S extends string> =
     S extends `${infer L}${infer R}` 
         ? [L,...String<R>]
         : []
-type LengthOfString<T extends string> = String<T>['length']
+export type LengthOfString<T extends string> = String<T>['length']
 
 
 // 用一个arr存起来
