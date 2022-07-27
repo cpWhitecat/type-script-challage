@@ -3,8 +3,24 @@ interface TreeNode {
     left: TreeNode | null
     right: TreeNode | null
   }
-  type InorderTraversal<T extends TreeNode | null> = any
+  type InorderTraversal<T extends TreeNode | null,LastVal = never> = 
+  // T extends TreeNode 
+  //   ? T['left'] extends null 
+  //     ? T['right'] extends TreeNode ? [T['val'],...InorderTraversal<T['right']>]
+  //     : [T['val']]
+
   
+
+
+
+
+  T extends TreeNode 
+  ?  T['left'] extends TreeNode 
+    ? InorderTraversal<T['left'],T['val']>
+    : T['right'] extends TreeNode 
+        ? [T['val'],...InorderTraversal<T['right']>]
+        : [LastVal] extends [never] ? [T['val']] : [T['val'],LastVal]
+  :[]
   
   /* _____________ Test Cases _____________ */
   import type { Equal, Expect } from '../../utils'
@@ -23,6 +39,9 @@ interface TreeNode {
     },
   } as const
   
+  type tree1Type = typeof tree1
+  type B = InorderTraversal<typeof tree4>
+
   const tree2 = {
     val: 1,
     left: null,
@@ -56,3 +75,5 @@ interface TreeNode {
     Expect<Equal<InorderTraversal<typeof tree3>, [2, 1]>>,
     Expect<Equal<InorderTraversal<typeof tree4>, [1, 2]>>,
   ]
+
+  
