@@ -1,5 +1,4 @@
 type Chunk<T extends any[],N> = T['length'] extends 
-// 好像没有N 不能被整除的例子 而且比T['length']小
 // 如果greater than实现的话这个例子又很好做
 
 /* _____________ Test Cases _____________ */

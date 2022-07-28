@@ -1,4 +1,4 @@
-type TupleToUnion<T> =  T extends (string|symbol|number|boolean)[] | any[]  ? T[number] : never
+export type TupleToUnion<T> =  T extends (string|symbol|number|boolean)[] | any[]  ? T[number] : T
 
 
 /* _____________ Test Cases _____________ */
