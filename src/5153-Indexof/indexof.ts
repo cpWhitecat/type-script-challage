@@ -1,4 +1,4 @@
-type IndexOf<T extends any[], U> = 
+type IndexOf<T extends any[], U> = T extends [infer A ,...infer rest] ? A extends U ? [A] : [A,...IndexOf<rest,U>] :[]
 
 
 /* _____________ Test Cases _____________ */
@@ -13,3 +13,5 @@ type cases = [
 ]
 
 type B =IndexOf<[1, 2, 3], 2>
+type C<T extends any[]> =T[number] extends infer P ? T[P] :never 
+type D = C<[1,2]>
