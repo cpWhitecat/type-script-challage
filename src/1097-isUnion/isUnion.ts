@@ -1,4 +1,4 @@
-type IsUnion<T> = [T] extends [never] ? true : 
+type IsUnion<T> = [T] extends [never] ? true : [any|unknown|never] extends [T] ? false :true
  // never 本身就是个union类型
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '../../utils'
