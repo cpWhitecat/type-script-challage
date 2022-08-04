@@ -3,10 +3,7 @@ import type {TupleToUnion} from '../10-tupleToUnion/tupleToUnion'
 type MyExculde<T,U> = T extends U ? never : T 
 
 type UnionToTuple<T> = T extends infer U ? true : false
-type Unique<T,union = never> = T extends any[] 
-  ? TupleToUnion<T> extends infer P ? [P extends ,...Unique<any,MyExculde<TupleToUnion<T>,P>>]:[]
-  : union extends infer B ? [B,...Unique<any,MyExculde<TupleToUnion<T>,B>>]:[]
-
+type Unique<T,union =TupleToUnion<T> > = 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '../../utils'
 // union to tuple

@@ -4,10 +4,7 @@ type Fill<
   N,
   Start extends number = 0,
   End extends number = T['length'],
-> = T extends [...infer Before,T[Start],...infer rest1,T[End],...infer rest2] 
-    ? Before['length'] extends 0 ? [N,...forEach<rest1,N>,N] : [,N,...forEach<rest1,N>,N]
-    :never
-
+> = T extends [...infer L,T[Start],...infer R] ? 
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '../../utils'
@@ -26,5 +23,5 @@ type cases = [
 ]
 
 
-type B = Fill<[1, 2, 3], true, 1, 2>
+type B = Fill<[1, 2, 3], true, 1, 3>
 type C = ['jfle','wijf'][0]

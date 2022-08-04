@@ -1,20 +1,21 @@
 // 主要逻辑就是通过之前的转换成字符   再通过string length 来做比较 还有写个对象 表示各个数比它本身小的union类型
 
 type numberLess = {
-    1:0,
-    2:1|0,
-    3:2|1|0,
-    4:3|2|1|0,
-    5:4|3|2|1|0,
-    6:5|4|3|2|1|0,
-    7:6|5|4|3|2|1|0,
-    8:7|6|5|4|3|2|1|0,
-    9:8|7|6|5|4|3|2|1|0,
+    '1':0,
+    '2':1|0,
+    '3':2|1|0,
+    '4':3|2|1|0,
+    '5':4|3|2|1|0,
+    '6':5|4|3|2|1|0,
+    '7':6|5|4|3|2|1|0,
+    '8':7|6|5|4|3|2|1|0,
+    '9':8|7|6|5|4|3|2|1|0,
 }
 import type {LengthOfString} from '../298-String-length/StringLength'
 
-type GreaterThan<T extends number, U extends number> = 
+// type GreaterThan<T extends number, U extends number , P extends string = `${T}`> = P extends keyof numberLess ? U extends numberLess[P] ? true :false :false
 
+type GreaterThan<T extends number, U extends number> = 
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '../../utils'
