@@ -25,8 +25,16 @@
 // type handleNumber<T extends string, Cache extends string=''> = `${T}` extends `${infer F extends keyof numberMap}${infer rest}` ? rest extends ''? numberMap[F]:handleNumber<rest>  :false
 //  type MinusOne<T extends number | '',Cache = '' > = `${T}` extends `${infer F extends keyof numberMap}${infer rest extends number | ''}` ? rest extends ''? numberMap[F]: MinusOne<rest,`${Cache}${}`>  :false
 
+type reverseNumber<T extends string> = `${T}` extends `${infer L }${infer R }` ? `${reverseNumber<R>}${L}` : ''
 
-type MinusOne<T extends number> = 
+type numberLess = [9,0,1,2,3,4,5,6,7,8]
+
+type handleString<T extends string> = 
+T extends `${infer First extends number}${infer rest}` 
+  ? numberLess[First] extends 9 ? `${numberLess[First]}${(handleString<`${rest}`> extends '0' ? '' : handleString<`${rest}`>)}` : `${numberLess[First]}${rest}`
+  : ''
+
+type MinusOne<T extends number> = reverseNumber<handleString<reverseNumber<`${T}`>>> extends `${infer All extends number}` ? All : never 
 // extends number 和反转数字都想到了 但一麻烦就觉得自己的方法不够好 ，结果发现 是自己懒
 
 import type { Equal, Expect } from '../../utils'
@@ -40,4 +48,5 @@ type cases = [
 //   空间复杂度太高了。。。溢出了 感觉要做成字符串来处理了 ， 明天再说吧
 ] 
  
-type B = MinusOne<1>
+type B = reverseNumber<'1101'>
+type D = MinusOne<100>
