@@ -1,5 +1,4 @@
-type Chunk<T extends any[],N> = T['length'] extends 
-// 
+type Chunk<T extends any[],N extends number> = T extends [infer F , ...infer rest]
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '../../utils'

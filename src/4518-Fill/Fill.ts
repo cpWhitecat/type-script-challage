@@ -1,10 +1,13 @@
 type forEach<T extends any[],N> = T[number] extends (infer K) ? [N] :never
+
+// 估计要做减法
+
 type Fill<
   T extends unknown[],
   N,
   Start extends number = 0,
   End extends number = T['length'],
-> = T extends [...infer L,T[Start],...infer R] ? 
+> = T extends [...infer L,T[Start],...infer R] ? [L,N[] extends {length:[]}] : 
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '../../utils'

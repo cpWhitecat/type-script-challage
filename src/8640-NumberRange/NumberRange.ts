@@ -4,13 +4,13 @@
 // 
 
 
-type defaultArray<T extends number , U extends any[] = []> = U extends {length:T} ? U : defaultArray<T,[...U,any]>
+// type defaultArray<T extends number , U extends any[] = []> = U extends {length:T} ? U : defaultArray<T,[...U,any]>
 // type NumberRange<L extends number, H extends number, T extends any[] = defaultArray<L> > = T['length'] extends H ? T['length'] :  | T['length'] | NumberRange<L,H,[...T,any]>
 
 // 超出特定范围会有个any 编译器的判断 我肯定不能改 是否有更好的方法
 // 我减法来试试看
 
-// 刚刚好又到46 就不动了 ， 是ts 对于递归深度的限制嘛
+// 刚刚好又到47 就不动了 ， 是ts 对于递归深度的限制嘛 
 
 // 那就tuple to union 吧
 type NumberRangeTuple<L extends number, H extends number , T extends any[] = [H]> = H extends L ? [...T,H] : NumberRangeTuple<L,MinusOne<H>,[...T,MinusOne<H>]>
@@ -20,7 +20,7 @@ type NumberRange<L extends number, H extends number> = TupleToUnion<NumberRangeT
 import type { Equal, Expect } from '../../utils'
 import { TupleToUnion } from '../10-tupleToUnion/tupleToUnion'
 import { MinusOne } from '../2257-MinusOne/MinusOne'
-import { Length } from '../4182-Fibonacci Sequence/Fibonacci_Sequence'
+
 type Result1 = | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 type Result2 = | 0 | 1 | 2
 type Result3 =
@@ -44,4 +44,4 @@ type cases = [
   Expect<Equal<NumberRange<0, 140>, Result3>>,
 ]
 
-type D = NumberRange<0, 140>
+type D = NumberRange<0, 47>

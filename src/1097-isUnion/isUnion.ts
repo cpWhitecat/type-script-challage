@@ -1,5 +1,8 @@
-type IsUnion<T> = [T] extends [never] ? true : [any|unknown|never] extends [T] ? false :true
+
+
+type IsUnion<T , F = T> = ( T extends F ? F extends T ? true : false : never) extends true ? false : true
  // never 本身就是个union类型
+//  想法就是 infer B | infer A 可实际却是两个泛型是一样的 ， 类型系统推断的一样
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '../../utils'
 
@@ -19,4 +22,9 @@ type cases = [
   Expect<Equal<IsUnion<never>, false>>,
 ]
 
-type B = [string | number] extends [string] ? true :false
+type D = (string extends number | string 
+  ? (string extends number ? true :false) | (string extends string ? true :false) 
+  :never) 
+| (number extends number | string 
+  ? (number extends number ? true :false) | (number extends string ? true :false) 
+  :never)
