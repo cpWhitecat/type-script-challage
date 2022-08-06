@@ -34,7 +34,7 @@ T extends `${infer First extends number}${infer rest}`
   ? numberLess[First] extends 9 ? `${numberLess[First]}${(handleString<`${rest}`> extends '0' ? '' : handleString<`${rest}`>)}` : `${numberLess[First]}${rest}`
   : ''
 
-type MinusOne<T extends number> = reverseNumber<handleString<reverseNumber<`${T}`>>> extends `${infer All extends number}` ? All : never 
+export type MinusOne<T extends number> = reverseNumber<handleString<reverseNumber<`${T}`>>> extends `${infer All extends number}` ? All : never 
 // extends number 和反转数字都想到了 但一麻烦就觉得自己的方法不够好 ，结果发现 是自己懒
 
 import type { Equal, Expect } from '../../utils'

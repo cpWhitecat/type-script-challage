@@ -1,8 +1,20 @@
-type NumberRange<L extends number, H extends number> = 
+// 使用同一个数组 ， 每次输出这个数组的length 然后再push和回调
+
+// 先提供符合length要求的数组
+// 
+
+
+type defaultArray<T extends number , U extends any[] = []> = U extends {length:T} ? U : defaultArray<T,[...U,any]>
+type NumberRange<L extends number, H extends number, T extends any[] = defaultArray<L> > = T['length'] extends H ? T['length'] :  | T['length'] | NumberRange<L,H,[...T,any]>
+
+// 超出特定范围会有个any 编译器的判断 我肯定不能改 是否有更好的方法
+// 我减法来试试看
+
 
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '../../utils'
+import { Length } from '../4182-Fibonacci Sequence/Fibonacci_Sequence'
 type Result1 = | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 type Result2 = | 0 | 1 | 2
 type Result3 =
@@ -25,3 +37,5 @@ type cases = [
   Expect<Equal<NumberRange<0, 2>, Result2>>,
   Expect<Equal<NumberRange<0, 140>, Result3>>,
 ]
+
+type D = NumberRange<0, 47>
