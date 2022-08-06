@@ -1,5 +1,5 @@
 type Chunk<T extends any[],N> = T['length'] extends 
-// 如果greater than实现的话这个例子又很好做
+// 
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '../../utils'
