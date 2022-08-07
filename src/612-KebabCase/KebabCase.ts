@@ -1,5 +1,9 @@
 type rule = 'A' | 'F' | 'B' | 'C'
-type KebabCase<S> = S extends `${infer A}${infer B}` ? 'A' | 'F' | 'B' | 'C' extends A ? `-${Lowercase<A>}${KebabCase<B>}` : `${A}${KebabCase<B>}` : S
+
+// 预处理一下
+type Load<S> = S extends `${infer FF}${infer P}` ? `${Lowercase<FF>}${P}` : S
+
+type KebabCase<S , U extends boolean = false> = U extends true ? S extends `${infer A}${infer B}` ? (A extends ('A' | 'F' | 'B' | 'C' ) ? `-${Lowercase<A>}${KebabCase<B,true>}` : `${A}${KebabCase<B,true>}`) : S : KebabCase<Load<S>,true>
 
 
 /* _____________ Test Cases _____________ */
@@ -17,5 +21,5 @@ type cases = [
   Expect<Equal<KebabCase<'😎'>, '😎'>>,
 ]
 
-type C<S> = S extends `${infer A}${infer B}` ? `${'P'}${C<B>}` : false
-type A = C<'fooBarBaz'>
+type C<S> = S extends `${infer A}${infer B}` ? `${Lowercase<A>}${C<B>}` : S
+type A = KebabCase<'ABC'>
