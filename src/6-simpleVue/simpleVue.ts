@@ -1,19 +1,20 @@
-type computedType = {
-    fullname :(this:intry['date']|intry['methods']|intry['computed'])=>any
-}
-// 在那本vue的设计与实现书中 ，这种有名的函数 是通过一个特殊的函数渲染出来的
-type methodsType= {
-
+type computedType<T> = {  //这边是遍历 function
+  [P in keyof T]:T[P] extends ()=>infer V ? V :never
 }
 
-type intry = {
-   
-    computed:computedType,
-    methods:methodsType,
-    date(this:intry['methods']|intry['computed']|intry['date']):any
+// ThisType 这个类型 虽然没有直接看到对函数的this注明类型 ，其实已经隐式的完成了
+
+type Options<D,C,M> ={
+   data:(this:{})=>D,
+   computed:ThisType<D&computedType<C>&M> & C,
+   methods:ThisType<D&computedType<C>&M> & M
 }
 
-declare function SimpleVue(options: intry): any
+
+
+
+
+declare function SimpleVue<D,C,M>(options: Options<D,C,M>): any
 
 
 /* _____________ 测试用例 _____________ */
