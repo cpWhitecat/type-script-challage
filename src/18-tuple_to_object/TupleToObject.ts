@@ -1,4 +1,4 @@
-type TupleToObject<T extends  readonly  (string|number|symbol)[]> = {
+export type TupleToObject<T extends  readonly  (string|number|symbol)[]> = {
     [P in T[number]] :  P
 }
 //首先是要遍历元组 ， 

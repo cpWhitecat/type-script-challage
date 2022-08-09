@@ -1,4 +1,5 @@
-type First<T extends any[]> = T[number] extends never? never : T[0]
+export type First<T extends any[]> = T[number] extends never? never : T[0]
+// T extends [infer F , ...infer rest] ? F :never
 
 
 /* _____________ Test Cases _____________ */

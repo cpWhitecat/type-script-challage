@@ -26,5 +26,5 @@ type cases = [
 ]
 
 
-type B = Fill<[1, 2, 3], true, 1, 3>
-type C = ['jfle','wijf'][0]
+// type B = Fill<[1, 2, 3], true, 1, 3>
+// type C = ['jfle','wijf'][0]
