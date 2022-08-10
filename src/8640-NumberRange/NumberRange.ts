@@ -10,7 +10,7 @@
 // 超出特定范围会有个any 编译器的判断 我肯定不能改 是否有更好的方法
 // 我减法来试试看
 
-// 刚刚好又到47 就不动了 ， 是ts 对于递归深度的限制嘛 
+// 刚刚好又到47 就不动了 ， 是ts 对于递归深度的限制嘛 所以搞成数组 对于字符串有递归限制
 
 // 那就tuple to union 吧
 type NumberRangeTuple<L extends number, H extends number , T extends any[] = [H]> = H extends L ? [...T,H] : NumberRangeTuple<L,MinusOne<H>,[...T,MinusOne<H>]>

@@ -15,7 +15,8 @@ type cases = [
 ]
 
 // hard 需要对类型推导更加了解 才能很好的做出来
-// 如下次 还有不懂 可看例子
+// 如下次 还有不懂 可看例子 https://github.com/type-challenges/type-challenges/issues/11283
+// https://github.com/type-challenges/type-challenges/issues/10984
 type UnionToIntersectiontest = ((a:1|2)=>any) extends ((a:1&2)=>any) ? true :false
 
 
