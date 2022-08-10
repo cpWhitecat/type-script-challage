@@ -2,7 +2,7 @@
 
 type IsUnion<T , F = T> = ( T extends F ? F extends T ? true : false : never) extends true ? false : true
  // never 本身就是个union类型
-//  想法就是 infer B | infer A 可实际却是两个泛型是一样的 ， 类型系统推断的一样
+//  想法就是 infer B | infer A 可实际却是两个泛型是一样的 ， 类型系统推断的一样   错误想法
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '../../utils'
 

@@ -25,11 +25,11 @@ type currying<T> = T extends ( ...args:infer P)=> infer result
 
 // 其他逻辑
 
-declare function Currying<T extends (...args:any[])=>boolean>(fn: T ): currying<T>
+declare function Currying<T>(fn: T ): currying<T>
 
 
 // 这道题其实酸做出来了 在Currying<T> 对这个T 搞了个extends (...args:any[])=>any  
-// 最后result 的类型是 boolean 这边感觉是形变的思想 ， 我没彻底了解形变 ， 导致我没发现这个错误
+// 最后result 的类型是 boolean 这边感觉是形变的思想 ，就是类型扩展了 从ture 扩展成 boolean 我没彻底了解它的类型推导机制 ， 导致我没发现这个错误
 // 而且对于 传入的值的名字是没有讲究的 在函数中 只是对值的类型数量是否可选做规范 
 
 /* _____________ 测试用例 _____________ */
@@ -50,4 +50,19 @@ type cases = [
 
 type test<T> = T extends (...args:infer P)=> any ? A : never
 type D =typeof curried1
-type P = currying<(a: string, b: number, c: boolean) => true>
+
+
+const result1 =  Currying((a: string) => true)
+const result2 =  Currying((a: string, b: number) => '1')
+const result3 =  Currying((a: string, b: number, c: boolean) => true)
+
+type A = typeof result1
+type B = typeof result2
+type C = typeof result3
+
+type DH = true extends infer A ? A :false
+
+
+let A = true 
+var B = true 
+const C = true
