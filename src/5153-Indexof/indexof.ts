@@ -1,7 +1,7 @@
 import type { Equal, Expect } from '../../utils'
 
 // 传入一个空数组可以自动达到减一效果,但要实现返回-1,所以用了第三个泛型
-type IndexOf<T extends any[], U,arr extends any[] = []> = T['length'] extends 0 ? -1 :T extends [infer A ,...infer rest] ? Equal<A,U> extends true ? arr['length']  :IndexOf<rest,U,[...arr,A]> : [];
+export type IndexOf<T extends any[], U,arr extends any[] = []> = T['length'] extends 0 ? -1 :T extends [infer A ,...infer rest] ? Equal<A,U> extends true ? arr['length']  :IndexOf<rest,U,[...arr,A]> : [];
 
 
 
