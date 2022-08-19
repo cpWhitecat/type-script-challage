@@ -46,5 +46,5 @@ type _2a = Expect<Equal<ToFunctionArg1<1 | 2>, (_: 1 | 2) => any>>
 
 type ExpandFunctionArg1<U> = U extends any ? ToFunctionArg1<U> : never
 type _2b = ExpandFunctionArg1<1 | 2>
-type IntersectFunctionArg1<U> = ExpandFunctionArg1<U> extends ToFunctionArg1<infer I> ? I : never
+type IntersectFunctionArg1<U> = ExpandFunctionArg1<1|2> extends ToFunctionArg1<infer I> ? I : never
 type _2c = Expect<Equal<IntersectFunctionArg1<1 | 2>, 1 & 2>>
