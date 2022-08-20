@@ -36,7 +36,7 @@ type G = F extends 1 ? never : false
 type Q =TupleToUnion<[unknown, unknown, any, any, never, never]>
 
 
-type JFOE = st
+
 
 
 type TupleToUnionReturnTuple<T> =T extends (string|symbol|number|boolean)[] | any[]  ? T[number] : T

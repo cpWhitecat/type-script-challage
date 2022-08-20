@@ -1,6 +1,11 @@
-type DeepObjectToUniq<O extends object> = {
-    [P in keyof O as symbol]:O[P] extends object ? DeepObjectToUniq<O[P]> : O[P]
-}
+const symbol = Symbol()
+type DeepObjectToUniq<O extends object, Path extends any[] = [O]> = {
+  [K in keyof O]: O[K] extends object ? DeepObjectToUniq<O[K], [...Path, K]> : O[K]
+} & { [symbol]?: Path }
+
+// 看明白思路了 ， 就是要使值特殊就给它添加一个key 后面的value给的是到这个key的路径
+
+// 想法相似 ， 之前想过 对key进行判断，判断是否唯一，但没有对key 进行存储
 
 
 /* _____________ Test Cases _____________ */
