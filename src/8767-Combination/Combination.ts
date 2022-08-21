@@ -1,4 +1,4 @@
-type Combination<T extends string[]> = T extends [infer F, ...infer Rest] ? 
+type Combination<T extends string[]> = T extends [infer F, ...infer Rest] ? never : []
 
 
 /* _____________ Test Cases _____________ */

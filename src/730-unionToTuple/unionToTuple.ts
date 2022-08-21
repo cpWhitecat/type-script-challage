@@ -1,8 +1,8 @@
 type MyExclude<T , U> = T extends U ? [] : T
 
-type UnionToTuple<T , P = T> = [T] extends [P] ? 
+type UnionToTuple<T , P = T> = [P] extends [never] ? [] : T extends P ? [T,...UnionToTuple<Exclude<P,T>>] : []
 
-// 题目看错 题目不需要union类型 ，只要其中一种就可以了
+
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '../../utils'
