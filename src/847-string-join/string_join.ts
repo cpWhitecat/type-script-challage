@@ -1,6 +1,8 @@
-type joining<T,Cache>
+type handleFirst<S extends string> = S extends `${infer F}${infer Next}` ? Next : S
 
-declare function join(delimiter: any): (...parts: any[]) => any
+type joining<U extends any[],delimiter extends string,Cache extends string= ''> =  U extends [infer F extends string ,...infer Rest] ? joining<Rest,delimiter,`${Cache}${delimiter}${F}`> : delimiter extends '' ? Cache: handleFirst<Cache>
+
+declare function join<T extends string>(delimiter: T): <U extends string[]>(...parts: U) => joining<U,T>
 
 
 /* _____________ Test Cases _____________ */
@@ -26,3 +28,5 @@ type cases = [
   Expect<Equal<typeof hashOutput, 'a#b#c'>>,
   Expect<Equal<typeof longOutput, 'a-b-c-d-e-f-g-h'>>,
 ]
+
+type Test1 =typeof hashOutput
