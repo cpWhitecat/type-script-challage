@@ -5,7 +5,7 @@ type Str2Union<T extends string, R extends string[] = []> = T extends `${infer F
 
 type Map = Str2Union<'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'>;
 
-type CapitalizeWords<S extends string , Cache  extends string= '',nextUpper extends boolean = true > = 
+export type CapitalizeWords<S extends string , Cache  extends string= '',nextUpper extends boolean = true > = 
 
     S extends `${infer F}${infer L}` ?
     
