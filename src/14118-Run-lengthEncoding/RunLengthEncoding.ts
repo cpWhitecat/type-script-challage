@@ -12,16 +12,20 @@
  * 上面做的 或许不应该跟上一个比较 ，而是跟它本身后面一个字符比较是否相等
 */
 
+// 应该没有可抽离的逻辑了
+
+// All type utils
 type numberMap = '0'| '1' | '2' | '3'| '4'| '5' | '6' | '7' | '8'|'9'
 
+// Encode utils
 type GetNextChar<S> = S extends `${infer F}${infer Next}` ? Next extends `${infer nextChar}${infer NextNextChar}` ?  nextChar : Next : S
-  
 
+
+// Decode utils
 type GetLength<S, endChar extends string = ''> = S extends `${infer F }${infer Next }` ? F extends numberMap ? GetLength<Next,`${endChar}${F}`> : endChar extends `${infer All extends number}` ? All : endChar : S
 type CreateTuple<S extends number , Char extends string  , Tuple extends any[] = []> = Tuple extends {length:S} ? Tuple : CreateTuple<S,Char,[...Tuple,Char]>
 type TupleToString<T extends any[],Cache extends string = ''> = T extends [infer F extends string , ...infer Rest extends string[]] ? TupleToString<Rest,`${Cache}${F}`> : Cache
 
-type TestGetLength = GetLength<'1B'>
 
 namespace RLE {
     export type Encode<S extends string  , CharCache extends any[] = [] , end extends string = '' ,nextChar  extends string = GetNextChar<S> > = 
@@ -37,7 +41,6 @@ namespace RLE {
 
 
 
-import { type } from 'os'
   /* _____________ Test Cases _____________ */
   import type { Equal, Expect } from '../../utils'
 import { Push } from '../3057-push/push'
