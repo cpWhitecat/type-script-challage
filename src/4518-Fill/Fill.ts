@@ -7,7 +7,9 @@ type Fill<
   N,
   Start extends number = 0,
   End extends number = T['length'],
-> = T extends [...infer L,T[Start],...infer R] ? [L,N[] extends {length:[]}] : 
+  Cache extends any[] =[]
+> = Cache['length'] extends Start
+    ? 
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '../../utils'

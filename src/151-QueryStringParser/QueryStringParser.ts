@@ -1,6 +1,6 @@
 import { Equal } from "../../utils"
 
-
+// 待明日重构 9.5 2022
 
 // 这个类型 感觉可以处理 实际浏览器的链接
 type Objectadd<T extends object, K extends string, V> = K extends keyof T    // 后面一堆判断 就是为了严重是否包含已存在的value
@@ -16,6 +16,8 @@ type Test2 = ParseQueryString<'k1&k1'>
 type Test3 = ParseQueryString<'k1=v1'>
 type Test4 =ParseQueryString<'k1=v1&k1=v1'>
 
+// 做了两遍 ，第二遍脑子差点理不清
+// 是ObjectAdd 这个类型没写好 ， 导致我把最开始做出来的排除了 ， 那时候明明是很简便的
 type ParseQueryString<
   S extends string , 
   KeyCache extends string = '' , 
@@ -23,16 +25,17 @@ type ParseQueryString<
   ObjectCache extends object = {} , 
   isEqualed extends boolean = false
   >=
-    S extends `${infer F}${infer Next}` 
-    ? isEqualed extends true
-      ? F extends '&'
-        ? ParseQueryString<Next,'','',Objectadd<ObjectCache,KeyCache,ValueCache>>
-        : ParseQueryString<Next,KeyCache,`${ValueCache}${F}`,ObjectCache,isEqualed>
-      : F extends '&'
-        ? ParseQueryString<Next,'','',Objectadd<ObjectCache,KeyCache,true>>
-        : F extends '='
-          ? ParseQueryString<Next,KeyCache,'',ObjectCache,true>
-          : ParseQueryString<Next,`${KeyCache}${F}`,'',ObjectCache>
+    S extends `${infer F}${infer Next}`
+    ?
+    isEqualed extends true
+    ? F extends '&'
+      ? ParseQueryString<Next,'','',Objectadd<ObjectCache,KeyCache,ValueCache>>
+      : ParseQueryString<Next,KeyCache,`${ValueCache}${F}`,ObjectCache,isEqualed>
+    : F extends '&'
+      ? ParseQueryString<Next,'','',Objectadd<ObjectCache,KeyCache,true>>
+      : F extends '='
+        ? ParseQueryString<Next,KeyCache,'',ObjectCache,true>
+        : ParseQueryString<Next,`${KeyCache}${F}`,'',ObjectCache>
     :KeyCache extends '' ?
     ObjectCache 
     :    isEqualed extends true 
@@ -46,12 +49,17 @@ type ParseQueryString<
     /* 
     F extends '&' 
       ? ParseQueryString<Next,'','',Objectadd<ObjectCache,KeyCache,isEqualed extends true ? ValueCache : true>>     //这边写不了！isEqualed 
-      : F extends '=' 
+      : F extends '=' // 这种情况碰到连续双等号就寄了
         ? ParseQueryString<Next , KeyCache , '',ObjectCache , true> 
         : isEqualed extends true
           ? ParseQueryString<Next,KeyCache,`${ValueCache}${F}`,ObjectCache,true>
           : ParseQueryString<Next,`${KeyCache}${F}`,'',ObjectCache>
-          
+    :
+      KeyCache extends '' 
+        ?ObjectCache 
+        :isEqualed extends true 
+          ? Objectadd<ObjectCache,KeyCache,ValueCache>
+          :Objectadd<ObjectCache,KeyCache,true>
           */
 
 // 如果等于后面的字符是前面之前出现过的Key会如何处理 ， 会变成一个object 还是 直接就把Key的字符放进去
