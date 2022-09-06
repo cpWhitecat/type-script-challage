@@ -24,10 +24,10 @@ type HandleNine<T extends string , U extends string> = (Add<GetNumber<T>,GetNumb
 type AddSum<A extends string , B extends string , result extends string = '' ,otherNumber extends string = '0'> = 
 A extends `${infer AF}${infer ANext}` 
 ? B extends `${infer BF}${infer BNext}` 
-    ? GreaterThan<Add<GetNumber<AF>,GetNumber<BF>>,HandleNine<AF,BF>> extends false 
+    ? GreaterThan<Add<Add<GetNumber<AF>,GetNumber<BF>>,GetNumber<otherNumber>>,HandleNine<`${Add<GetNumber<AF>,GetNumber<otherNumber>>}`,BF>> extends false 
         ? AddSum<ANext,BNext,`${result}${TupleFirst<Add<GetNumber<AF>,GetNumber<BF>>>}`>
         : AddSum<ANext,BNext,`${result}${Last<stringtoTuple<`${Add<GetNumber<AF>,GetNumber<BF>>}`>>}`,'1'>
-    :any
+    :  AddSum<ANext,otherNumber,`${result}${Add<GetNumber<AF>,GetNumber<otherNumber>>}`>
 :result
 // 加法器
 
@@ -50,3 +50,8 @@ type cases = [
   Expect<Equal<Sum<'0', 213>, '213'>>,
   Expect<Equal<Sum<0, '0'>, '0'>>,
 ]
+type Test1 =Sum<9999, 1>
+type Test2 =Sum<4325234, '39532'>
+type Test3 =Sum<'328', 7>
+type Test4 =Sum<1_000_000_000_000n, '123'>
+// 问题是多进了一位 一
