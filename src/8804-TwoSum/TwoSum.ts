@@ -7,7 +7,7 @@ type GetArrayValue<T extends number , Array extends any[] = []> =  Array extends
 type toEqual<T extends number , value extends number , U extends number[] ,initU extends number[] = U> = 
 U extends [infer F extends number, ...infer Rest extends number[]] ? [...GetArrayValue<T>,...GetArrayValue<F>]['length'] extends value ? true : toEqual<T,value,Rest,initU> : TwoSum<initU,value>
 
-type TwoSum<T extends number[], U extends number> = 
+export type TwoSum<T extends number[], U extends number> = 
 T extends [infer F extends number , ...infer Rest extends number[]] 
 ? toEqual<F,U,Rest>
 : false

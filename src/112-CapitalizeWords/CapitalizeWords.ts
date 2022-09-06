@@ -21,7 +21,7 @@ export type CapitalizeWords<S extends string , Cache  extends string= '',nextUpp
 
 
 
-    type stringtoTuple<S>  = S extends `${infer F}${infer P}` ? [`${F}`,...stringtoTuple<`${P}`>] : []
+  export  type stringtoTuple<S>  = S extends `${infer F}${infer P}` ? [`${F}`,...stringtoTuple<`${P}`>] : []
     // type teststringtotuple = stringtoTuple<'aa!bb@cc#dd$ee%ff^gg&hh*ii(jj)kk_ll+mm{nn}oo|pp🤣qq'>
 // emmm how to handle unionCode
 

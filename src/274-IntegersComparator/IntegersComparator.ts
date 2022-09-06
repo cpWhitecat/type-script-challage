@@ -1,7 +1,7 @@
 import { Equal } from "../../utils"
 import { GreaterThan } from "../4425-GreaterThan/GreaterThan"   //以前这个utils 没有考虑 复数问题 ，其实还需要考虑小数问题 ， 但我想摆了
 
-enum Comparison {
+export enum Comparison {
     Greater,
     Equal,
     Lower,
@@ -11,7 +11,7 @@ enum Comparison {
 type Than<A extends number,B extends number> = Equal<A,B> extends true ? Comparison.Equal : (GreaterThan<A,B> extends true ? Comparison.Greater : Comparison.Lower )
 
 
-  type Comparator<A extends number, B extends number> =
+  export type Comparator<A extends number, B extends number> =
    `${A}` extends `-${infer All_A extends number}` 
     ? `${B}` extends `-${infer All_B extends number}` ?  Than<All_B,All_A> : Comparison.Lower
     : `${B}` extends `-${infer All_B extends number}` ?  Comparison.Greater : Than<A,B>
