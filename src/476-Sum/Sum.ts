@@ -36,7 +36,7 @@ type numberLess = { //这个我肯定写过 ， 但找不到了。。。
 }
 type Length<S extends string, LengthCache extends any[] = []> = S extends `${infer F}${infer Next}` ? Length<Next, [...LengthCache, F]> : LengthCache['length']
 type EveryString<T extends string, U extends string> = T extends `${infer TF extends keyof numberLess}${infer TNext}` ? U extends `${infer UF}${infer UNext}` ? Equal<TF,UF> extends true ? EveryString<TNext,UNext> : numberLess[TF] extends UF ? true : false : false : false
-type NewGreaterThan<T extends number , U extends number> = Equal<Length<`${T}`>, Length<`${U}`>> extends true ? EveryString<`${T}`,`${U}`> : 
+type NewGreaterThan<T extends number , U extends number> = Equal<Length<`${T}`>, Length<`${U}`>> extends true ? EveryString<`${T}`,`${U}`> : GreaterThan<Length<`${T}`>, Length<`${U}`>>
  
 
 
@@ -84,7 +84,7 @@ otherNumber extends '0'
       AddSum<'','',`${result}${ANext}`>
       : AddSum<ANext,'1',`${result}${Add<GetNumber<AF>,GetNumber<otherNumber>>}`>
 */
-type Sum<A extends string | number | bigint, B extends string | number | bigint> = ReverseString<AddSum<ReverseString<`${A}`>, ReverseString<`${B}`>>
+type Sum<A extends string | number | bigint, B extends string | number | bigint> = NewGreaterThan<GetNumber<`${A}`>,GetNumber<`${B}`>> extends true ? ReverseString<AddSum<ReverseString<`${A}`>, ReverseString<`${B}`>>> : ReverseString<AddSum<ReverseString<`${B}`>, ReverseString<`${A}`>>>
 
 
 
