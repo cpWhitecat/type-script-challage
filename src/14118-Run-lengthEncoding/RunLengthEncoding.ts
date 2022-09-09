@@ -15,7 +15,7 @@
 // 应该没有可抽离的逻辑了
 
 // All type utils
-type numberMap = '0'| '1' | '2' | '3'| '4'| '5' | '6' | '7' | '8'|'9'
+export type numberMap = '0'| '1' | '2' | '3'| '4'| '5' | '6' | '7' | '8'|'9'
 
 // Encode utils
 type GetNextChar<S> = S extends `${infer F}${infer Next}` ? Next extends `${infer nextChar}${infer NextNextChar}` ?  nextChar : Next : S

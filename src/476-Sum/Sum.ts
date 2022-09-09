@@ -36,7 +36,7 @@ type numberLess = { //这个我肯定写过 ， 但找不到了。。。
 }
 type Length<S extends string, LengthCache extends any[] = []> = S extends `${infer F}${infer Next}` ? Length<Next, [...LengthCache, F]> : LengthCache['length']
 type EveryString<T extends string, U extends string> = T extends `${infer TF extends keyof numberLess}${infer TNext}` ? U extends `${infer UF}${infer UNext}` ? Equal<TF,UF> extends true ? EveryString<TNext,UNext> : numberLess[TF] extends UF ? true : false : false : false
-type NewGreaterThan<T extends number , U extends number> = Equal<Length<`${T}`>, Length<`${U}`>> extends true ? EveryString<`${T}`,`${U}`> : GreaterThan<Length<`${T}`>, Length<`${U}`>>
+export type NewGreaterThan<T extends number , U extends number> = Equal<Length<`${T}`>, Length<`${U}`>> extends true ? EveryString<`${T}`,`${U}`> : GreaterThan<Length<`${T}`>, Length<`${U}`>>
  
 
 
