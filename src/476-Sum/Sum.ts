@@ -84,6 +84,7 @@ otherNumber extends '0'
       AddSum<'','',`${result}${ANext}`>
       : AddSum<ANext,'1',`${result}${Add<GetNumber<AF>,GetNumber<otherNumber>>}`>
 */
+// 之前另一个隐藏的问题就是 我拿取反后的字符开始 比较 ， 所以会报错
 type Sum<A extends string | number | bigint, B extends string | number | bigint> = NewGreaterThan<GetNumber<`${A}`>,GetNumber<`${B}`>> extends true ? ReverseString<AddSum<ReverseString<`${A}`>, ReverseString<`${B}`>>> : ReverseString<AddSum<ReverseString<`${B}`>, ReverseString<`${A}`>>>
 
 
