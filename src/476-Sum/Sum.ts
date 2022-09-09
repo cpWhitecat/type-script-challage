@@ -17,7 +17,7 @@ type HandleNine<T extends number> = (T extends 9 ? 8 : 9)
 
 
 type isOne<AF extends string, BF extends string, otherNumber extends string> =
-  GreaterThan<AddEnd<AF, BF, otherNumber>, HandleNine<AddEnd<AF, BF, otherNumber>>>
+  GreaterThan<AddEnd<AF, BF, otherNumber>, 9>
 
 type AddEnd<AF extends string, BF extends string, otherNumber extends string> = Add<Add<GetNumber<AF>, GetNumber<BF>>, GetNumber<otherNumber>>
 
@@ -49,24 +49,11 @@ type isOneFunction<AF extends string, ANext extends string, BF extends string, B
 
 type TestVoid<T> = T extends `${infer F}${infer A}` ? true : false
 type AJl = TestVoid<'1'>
+type TestGreaterThan =isOne<'4','4','1'>
 
 // 这个类型还有小数问题需要解决 ，还有负号
+// 又知道了一个问题  type handleNine 出问题了
 
-
-
-type AddSum<A extends string, B extends string, result extends string = '', otherNumber extends string = '0'> =
-  A extends `${infer AF}${infer ANext}`
-  ? B extends `${infer BF}${infer BNext}`
-  ? isOne<AF, BF, otherNumber> extends false
-  ? AddSum<ANext, BNext, `${result}${AddEnd<AF, BF, otherNumber>}`>
-  : AddSum<ANext, BNext, `${result}${GetSecStr<`${AddEnd<AF, BF, otherNumber>}`>}`, '1'>
-
-  : isOne<AF, '0', otherNumber> extends false
-  ? AddSum<ANext, '', `${result}${AddEnd<AF, '0', otherNumber>}`>
-  : AddSum<ANext, '', `${result}${GetSecStr<`${AddEnd<AF, '0', otherNumber>}`>}`, '1'>
-
-
-  : `${result}${otherNumber extends '1' ? otherNumber : ''}`
 // 加法器
 
 // 出问题的utils 找到了 ， 就是以前的没有考虑好情况以及偷懒了 ，greaterThan 应该先使用 字符长度比较 等长再逐一对于比较 ， 我那时也这么想的但是偷懒了
@@ -85,9 +72,26 @@ otherNumber extends '0'
       : AddSum<ANext,'1',`${result}${Add<GetNumber<AF>,GetNumber<otherNumber>>}`>
 */
 // 之前另一个隐藏的问题就是 我拿取反后的字符开始 比较 ， 所以会报错
-type Sum<A extends string | number | bigint, B extends string | number | bigint> = NewGreaterThan<GetNumber<`${A}`>,GetNumber<`${B}`>> extends true ? ReverseString<AddSum<ReverseString<`${A}`>, ReverseString<`${B}`>>> : ReverseString<AddSum<ReverseString<`${B}`>, ReverseString<`${A}`>>>
 
 
+type AddSum<A extends string, B extends string, result extends string = '', otherNumber extends string = '0'> =
+  A extends `${infer AF}${infer ANext}`
+  ? B extends `${infer BF}${infer BNext}`
+    ? isOne<AF, BF, otherNumber> extends false
+      ? AddSum<ANext, BNext, `${result}${AddEnd<AF, BF, otherNumber>}`>
+      : AddSum<ANext, BNext, `${result}${GetSecStr<`${AddEnd<AF, BF, otherNumber>}`>}`, '1'>
+
+  : isOne<AF, '0', otherNumber> extends false
+    ? AddSum<ANext, '', `${result}${AddEnd<AF, '0', otherNumber>}`>
+    : AddSum<ANext, '', `${result}${GetSecStr<`${AddEnd<AF, '0', otherNumber>}`>}`, '1'>
+
+
+  : `${result}${otherNumber extends '1' ? '1' : ''}`
+
+export type Sum<A extends string | number | bigint, B extends string | number | bigint> = 
+NewGreaterThan<GetNumber<`${A}`>,GetNumber<`${B}`>> extends true ? ReverseString<AddSum<ReverseString<`${A}`>, ReverseString<`${B}`>>> : ReverseString<AddSum<ReverseString<`${B}`>, ReverseString<`${A}`>>>
+
+// AddSum<ReverseString<`${A}`>, ReverseString<`${B}`>>
 
 
 /* _____________ Test Cases _____________ */
@@ -102,10 +106,13 @@ type cases = [
   Expect<Equal<Sum<728, 0>, '728'>>,
   Expect<Equal<Sum<'0', 213>, '213'>>,
   Expect<Equal<Sum<0, '0'>, '0'>>,
+  Expect<Equal<Sum<9999,'10'>,'10009'>>
 ]
 type Test1 =Sum<9999, 1>
 type Test2 =Sum<4325234, '39532'>
 type Test3 =Sum<'328', 7>
 type Test4 =Sum<1_000_000_000_000n, '123'>
 type Test5 =Sum<'0', 213>
+type Test6 = Sum<9989,'10'>
 // 问题是多进了一位 一
+
