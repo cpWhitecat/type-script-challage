@@ -35,10 +35,17 @@ type numberLess = { //这个我肯定写过 ， 但找不到了。。。
   '9':'8' | '7' | '6' | '5' | '4' | '3' | '2' | '1' | '0'
 }
 type Length<S extends string, LengthCache extends any[] = []> = S extends `${infer F}${infer Next}` ? Length<Next, [...LengthCache, F]> : LengthCache['length']
-type EveryString<T extends string, U extends string> = T extends `${infer TF extends keyof numberLess}${infer TNext}` ? U extends `${infer UF}${infer UNext}` ? Equal<TF,UF> extends true ? EveryString<TNext,UNext> : numberLess[TF] extends UF ? true : false : false : false
+type EveryString<T extends string, U extends string> = 
+T extends `${infer TF extends keyof numberLess}${infer TNext}` 
+  ? U extends `${infer UF}${infer UNext}` 
+    ? Equal<TF,UF> extends true 
+      ? EveryString<TNext,UNext> 
+      : UF extends numberLess[TF] ? true : false
+  : false
+: false
 export type NewGreaterThan<T extends number , U extends number> = Equal<Length<`${T}`>, Length<`${U}`>> extends true ? EveryString<`${T}`,`${U}`> : GreaterThan<Length<`${T}`>, Length<`${U}`>>
  
-
+type Test = EveryString<`${2}`,`${1}`>
 
 type isOneFunction<AF extends string, ANext extends string, BF extends string, BNext extends string, result extends string, otherNumber extends string> =
   isOne<AF, BF, otherNumber> extends false
