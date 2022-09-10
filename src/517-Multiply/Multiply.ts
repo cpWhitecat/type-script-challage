@@ -14,14 +14,14 @@ import { GetNumber, NewGreaterThan, ReverseString, Sum } from "../476-Sum/Sum"
 /**
  * 如何处理0是一个问题 ， 如果是出现在中间 ， 那就
  */
-
+// 一对一
 type One_Multiply_One<A extends number , B extends number , Cache extends number = 0> = 0  extends A | B  ? `${Cache}` : One_Multiply_One<A,MinusOne<B>, GetNumber<Sum<Cache,A>>> 
-type Test_One_Multiply_One = One_Multiply_One<7,9>
+type Test_One_Multiply_One = One_Multiply_One<7,9> // 63
 
 type HaveTenDigit<T extends number | string | bigint> = ReverseString<`${T}`> extends `${infer F}${infer next}` ? F : T
 type GetTen<T extends number | string | bigint> = `${T}` extends `${infer F}${infer Rest}` ? F : T
-type TestHaveTenDigit = HaveTenDigit<89>
-
+type TestHaveTenDigit = HaveTenDigit<89> // 9
+// 一对多
 type One_Multiply_Every<long extends string , E extends string , Cache extends string = '' , TenDigit extends string = '0'> = 
 long extends `${infer First extends number}${infer Rest}`
 ? Sum<One_Multiply_One<GetNumber<E>,First>,TenDigit> extends numberMap
@@ -31,9 +31,16 @@ long extends `${infer First extends number}${infer Rest}`
 
 
 type Test_One_Multiply_Every = One_Multiply_Every<'76','3'>  // 102
-
-type handleResult<T extends any[], result extends any[] = [],Z extends string = ''> = T extends [infer F extends string, ...infer Rest] ? handleResult<Rest,[...result,`${Z}${F}`],`${Z}${0}`> : result
-type SumResult<T extends string[], S extends string = '0' > = T extends [infer F extends string,...infer Rest extends string[]] ? SumResult<Rest,Sum<ReverseString<F>,S>> : S
+// add zero
+type handleResult<T extends any[], result extends any[] = [],Z extends string = ''> = 
+T extends [infer F extends string, ...infer Rest] 
+  ? handleResult<Rest,[...result,`${Z}${F}`],`${Z}${0}`> 
+  : result
+// Sum added
+type SumResult<T extends string[], S extends string = '0' > = 
+T extends [infer F extends string,...infer Rest extends string[]] 
+  ? SumResult<Rest,Sum<ReverseString<F>,S>> 
+  : S
 
 type MultiplyEnd<short extends string , long extends string , result extends any[] = []> = 
 short extends `${infer F}${infer Next}`
@@ -41,10 +48,8 @@ short extends `${infer F}${infer Next}`
 : SumResult<handleResult<result>>
 
 // 类型太复杂了 ，导致类型系统认为是 infinite ,那就加到数组里好了 
-// 看来要真的要重构了
 
-
-
+// 奉行 短的乘以长的 ，减少复杂类型运算次数
 type Multiply<A extends string | number | bigint, B extends string | number | bigint> = 
 '0' extends `${A}` | `${B}` 
 ? '0' 
