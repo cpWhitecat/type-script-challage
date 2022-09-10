@@ -19,22 +19,30 @@ type One_Multiply_One<A extends number , B extends number , Cache extends number
 type Test_One_Multiply_One = One_Multiply_One<7,9>
 
 type HaveTenDigit<T extends number | string | bigint> = ReverseString<`${T}`> extends `${infer F}${infer next}` ? F : T
-type GetTenDigit<T extends number | string | bigint> = `${T}` extends `${infer F}${infer Rest}` ? Rest : T
+type GetTen<T extends number | string | bigint> = `${T}` extends `${infer F}${infer Rest}` ? F : T
 type TestHaveTenDigit = HaveTenDigit<89>
 
 type One_Multiply_Every<long extends string , E extends string , Cache extends string = '' , TenDigit extends string = '0'> = 
 long extends `${infer First extends number}${infer Rest}`
-? 
-    `${Cache}${HaveTenDigit<Sum<One_Multiply_One<GetNumber<E>,First>,TenDigit>>}`
-: TenDigit
+? Sum<One_Multiply_One<GetNumber<E>,First>,TenDigit> extends numberMap
+  ? One_Multiply_Every<Rest,E,`${Cache}${Sum<One_Multiply_One<GetNumber<E>,First>,TenDigit>}`>
+  : One_Multiply_Every<Rest,E,`${Cache}${HaveTenDigit<Sum<One_Multiply_One<GetNumber<E>,First>,TenDigit>>}` ,GetTen<Sum<One_Multiply_One<GetNumber<E>,First>,TenDigit>>>
+: `${Cache}${TenDigit extends '0' ? '' : TenDigit}`
 
-type Test_One_Multiply_Every = One_Multiply_Every<'76','3'>
 
+type Test_One_Multiply_Every = One_Multiply_Every<'76','3'>  // 102
 
-type MultiplyEnd<short extends string , long extends string , result extends string = ''> = 
+type handleResult<T extends any[], result extends any[] = [],Z extends string = ''> = T extends [infer F extends string, ...infer Rest] ? handleResult<Rest,[...result,`${Z}${F}`],`${Z}${0}`> : result
+type SumResult<T extends string[], S extends string = '0' > = T extends [infer F extends string,...infer Rest extends string[]] ? SumResult<Rest,Sum<ReverseString<F>,S>> : S
+
+type MultiplyEnd<short extends string , long extends string , result extends any[] = []> = 
 short extends `${infer F}${infer Next}`
-? MultiplyEnd<Next,long,`${result}`>
-: result
+? MultiplyEnd<Next,long,[...result,One_Multiply_Every<long,F>]>
+: SumResult<handleResult<result>>
+
+// 类型太复杂了 ，导致类型系统认为是 infinite ,那就加到数组里好了 
+// 看来要真的要重构了
+
 
 
 type Multiply<A extends string | number | bigint, B extends string | number | bigint> = 
@@ -42,8 +50,10 @@ type Multiply<A extends string | number | bigint, B extends string | number | bi
 ? '0' 
 
 : NewGreaterThan<GetNumber<`${A}`>,GetNumber<`${B}`>> extends false
-  ? true :false
+  ? MultiplyEnd<ReverseString<`${B}`>,ReverseString<`${A}`>> : MultiplyEnd<ReverseString<`${A}`>,ReverseString<`${B}`>>
 
+type Test1 = Multiply<11n, 103n>
+type Test2 =Multiply<'43423', 321543n>
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '../../utils'
