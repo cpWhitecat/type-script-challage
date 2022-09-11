@@ -2,7 +2,7 @@ type isTupel<T> = T extends [infer F , ...infer Rest] ? F extends any ? [F,...is
 type isObject<T> = {
   [P in keyof T]:T[P] extends any
 }
-
+// test commit
 type DistributeUnions<T , Cache extends any[] | any = T> = T extends any[] | any? isTupel<T> :T extends object ? isObject<T> : never
 
 type testDis = DistributeUnions<[1 | 2, 'a' | 'b', false | true]>
