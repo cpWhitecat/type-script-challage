@@ -49,7 +49,7 @@ type cases = [
   >,
   Expect<
   Equal<
-  DistributeUnions<
+  DistributeUnions
   | {
     type: 'a'
     option: { kind: 'none' } | { kind: 'some'; value: 'x' | 'y' }
