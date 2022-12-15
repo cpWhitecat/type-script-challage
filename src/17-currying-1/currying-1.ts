@@ -9,7 +9,7 @@ type newFirst<T> = T extends [infer F , ...infer rest] ? F :never
 
 type test1 = newFirst<[a: string, b: number, c: boolean]>
 // type currying<T extends (...args:any[])=>any , result= ReturnType<T>> = 
-type currying<T> = T extends ( ...args:infer P)=> infer result
+export type currying<T> = T extends ( ...args:infer P)=> infer result
   ? P extends [infer F,...infer rest] 
       ? (a:F)=> currying<(...args:rest)=>result> 
       :result :never

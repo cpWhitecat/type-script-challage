@@ -13,8 +13,8 @@
 // 刚刚好又到47 就不动了 ， 是ts 对于递归深度的限制嘛 所以搞成数组 对于字符串有递归限制
 
 // 那就tuple to union 吧
-type NumberRangeTuple<L extends number, H extends number , T extends any[] = [H]> = H extends L ? [...T,H] : NumberRangeTuple<L,MinusOne<H>,[...T,MinusOne<H>]>
-type NumberRange<L extends number, H extends number> = TupleToUnion<NumberRangeTuple<L,H>>
+export type NumberRangeTuple<L extends number, H extends number , T extends any[] = [H]> = H extends L ? T : NumberRangeTuple<L,MinusOne<H>,[MinusOne<H>,...T]>
+export type NumberRange<L extends number, H extends number> = TupleToUnion<NumberRangeTuple<L,H>>
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '../../utils'
@@ -45,3 +45,5 @@ type cases = [
 ]
 
 type D = NumberRange<0, 47>
+
+type TestRangeTuple = NumberRangeTuple<0,140>

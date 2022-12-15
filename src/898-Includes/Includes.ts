@@ -1,5 +1,5 @@
 import type {Equal} from '../../utils' //infer 是个薄弱项
-type Includes<T extends readonly any[], U> =T extends [
+export type Includes<T extends readonly any[], U> =T extends [
     infer First , 
     ...infer Args
     ]

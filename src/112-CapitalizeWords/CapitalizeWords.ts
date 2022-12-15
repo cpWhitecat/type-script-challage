@@ -5,7 +5,7 @@ type Str2Union<T extends string, R extends string[] = []> = T extends `${infer F
 
 type Map = Str2Union<'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'>;
 
-type CapitalizeWords<S extends string , Cache  extends string= '',nextUpper extends boolean = true > = 
+export type CapitalizeWords<S extends string , Cache  extends string= '',nextUpper extends boolean = true > = 
 
     S extends `${infer F}${infer L}` ?
     
@@ -21,7 +21,7 @@ type CapitalizeWords<S extends string , Cache  extends string= '',nextUpper exte
 
 
 
-    type stringtoTuple<S>  = S extends `${infer F}${infer P}` ? [`${F}`,...stringtoTuple<`${P}`>] : []
+  export  type stringtoTuple<S>  = S extends `${infer F}${infer P}` ? [`${F}`,...stringtoTuple<`${P}`>] : []
     // type teststringtotuple = stringtoTuple<'aa!bb@cc#dd$ee%ff^gg&hh*ii(jj)kk_ll+mm{nn}oo|pp🤣qq'>
 // emmm how to handle unionCode
 

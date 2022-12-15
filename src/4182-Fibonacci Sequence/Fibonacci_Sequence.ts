@@ -7,12 +7,12 @@ type LastArrayValue<T extends any[]> = T extends [...infer Before , infer Last] 
 
 // 加法
 export type Length<T extends any[]> = 
-    T extends { length: infer L } ? L : never;
+    T extends { length: infer L } ? L : 0;
 
 type BuildTuple<L extends number, T extends any[] = []> = 
     T extends { length: L } ? T : BuildTuple<L, [...T, any]>;
 
-type Add<A extends number, B extends number> = 
+export type Add<A extends number, B extends number> = 
     Length<[...BuildTuple<A>, ...BuildTuple<B>]>;
 
 
